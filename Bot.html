@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bot Nulis By Fathan Raffi</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<header>
+		<h1>Bot Fathan</h1>
+	</header>
+	<div class="main">
+		<div class="tulis"><textarea id="buku"></textarea>
+		<center>
+			<button type="submit" onclick="botnulis()" id='button'>Mulai Nulis</button>
+			<button type="submit" onClick="document.location.reload(true)">Reset Ulang</button>
+		</center>
+	</div>
+<script>
+
+//mau ambil codenya ya ?
+//ambil aja ! santuy ko
+//jangan lupa subscribe youtube azhari jr 
+		function reloadpage(){location.reload()}
+
+       function botnulis() {
+           var xhr = new XMLHttpRequest();
+           var tulisan = encodeURIComponent(document.getElementById("buku").value);
+           var url = "https://tools.zone-xsec.com/api/nulis.php?q="+tulisan;
+           xhr.onloadstart = function () {
+               document.getElementById("button").innerHTML = "Loading...";}
+           xhr.onerror = function () {
+               alert("Gagal Terhubung Ke Api");
+           };
+           xhr.onloadend = function () {
+               if (this.responseText !== "") {
+                   var data = JSON.parse(this.responseText);
+                   var img = document.createElement("img");
+		    img.setAttribute("width", "304");
+                   img.src = data.image;
+                   var name = document.createElement("h3");
+                   name.innerHTML = data.status;
+                 if (data.status == 'Error'){
+                    alert('Error');
+                    alert('Harap masukan input dengan benar!');
+                 }else{
+                   document.getElementById("xsec").append(img);
+
+                   setTimeout(function () {
+                       document.getElementById("button").innerHTML = "Buat Lagi";
+                   }, 3000);
+                 }
+               }
+           };
+           xhr.open("GET", url, true);
+           xhr.send();
+       }
+
+       function clearResult() {
+           document.getElementById("xsec").innerHTML = "";
+       }
+   </script>
+<div class="hasil">
+	<div class="hasil2">
+	<!--  <div class="tile"> -->
+ 		<div class="tile-body" id="xsec"></div>
+   <!-- </div> -->
+	</div>
+</div>
+
+<div id="coba"></div>
+  
+
+</body>
+</html>
